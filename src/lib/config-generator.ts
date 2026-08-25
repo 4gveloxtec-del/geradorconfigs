@@ -2,6 +2,7 @@ import {
   CACHE_CONFIG_TEMPLATE,
   MAC_CHARS,
   MAC_PREFIX,
+  TEMPLATE_BACKUP_MAC,
 } from "./cache-config-template";
 
 const SP_SN_BACKUP_RE =
@@ -29,20 +30,24 @@ export function isValidMac(mac: string): boolean {
   ).test(mac);
 }
 
-/** Builds a fresh copy of the untouched template with only SP_SN_BACKUP replaced. */
+/**
+ * Builds a fresh copy of the untouched raw template, replacing ONLY the MAC
+ * text inside <string name="SP_SN_BACKUP">...,1</string>.
+ * Pure targeted string replacement — no XML parsing/serialization.
+ */
 export function buildConfigXml(mac: string): string {
-  const template = String(CACHE_CONFIG_TEMPLATE);
-  return template.replace(SP_SN_BACKUP_RE, `$1${mac},1$3`);
+  return CACHE_CONFIG_TEMPLATE.replace(SP_SN_BACKUP_RE, `$1${mac},1$3`);
 }
 
-function isWellFormedXml(xml: string): boolean {
-  if (typeof DOMParser === "undefined") return true;
-  try {
-    const doc = new DOMParser().parseFromString(xml, "application/xml");
-    return doc.getElementsByTagName("parsererror").length === 0;
-  } catch {
-    return false;
-  }
+/**
+ * Round-trip check: putting the original MAC back into the generated string
+ * must reproduce the original template exactly, character for character.
+ */
+export function roundTripsToTemplate(xml: string): boolean {
+  return (
+    xml.replace(SP_SN_BACKUP_RE, `$1${TEMPLATE_BACKUP_MAC},1$3`) ===
+    CACHE_CONFIG_TEMPLATE
+  );
 }
 
 /**
@@ -60,17 +65,9 @@ export function validateConfig(xml: string, mac: string): boolean {
   const generatedKey = xml.match(KEY_SP_SN_RE)?.[1];
   if (!originalKey || originalKey !== generatedKey) return false;
 
-  // Only the SP_SN_BACKUP line may differ from the template.
-  const originalLines = CACHE_CONFIG_TEMPLATE.split("\n");
-  const generatedLines = xml.split("\n");
-  if (originalLines.length !== generatedLines.length) return false;
-  for (let i = 0; i < originalLines.length; i++) {
-    if (originalLines[i] === generatedLines[i]) continue;
-    if (!originalLines[i]!.includes('name="SP_SN_BACKUP"')) return false;
-  }
-
-  return isWellFormedXml(xml);
+  return roundTripsToTemplate(xml);
 }
+
 
 /**
  * Generates `quantity` unique configs. `excluded` holds MACs already used in
