@@ -42,7 +42,8 @@ export const CACHE_CONFIG_TEMPLATE = `<?xml version='1.0' encoding='utf-8' stand
     <string name="68143">946b2cd8-d75c-11f0-b76f-a304a7c797c8LiveDataV6;1766172909</string>
     <string name="key_renew_flag">0</string>
     <long name="service_time_recommends" value="1765568698111" />
-</map>`;
+</map>
+`;
 
 /** Fixed MAC prefix — never changes. */
 export const MAC_PREFIX = "9C:00:D3:CF:";
