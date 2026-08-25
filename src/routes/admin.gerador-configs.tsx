@@ -154,7 +154,29 @@ function GeradorConfigsPage() {
         <p className="text-sm text-muted-foreground">
           Gere variações do arquivo-base alterando somente o segundo MAC.
         </p>
+        {canInstall ? (
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="mt-2 w-full sm:w-auto"
+            onClick={() => void install()}
+          >
+            <Download className="mr-2 size-4" />
+            Instalar aplicativo
+          </Button>
+        ) : null}
       </header>
+
+      {updateReady ? (
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-md border border-border bg-muted/50 px-4 py-3">
+          <span className="text-sm font-medium">Nova versão disponível.</span>
+          <Button type="button" size="sm" onClick={applyUpdate}>
+            Atualizar
+          </Button>
+        </div>
+      ) : null}
+
 
       <Card className="mt-6">
         <CardContent className="space-y-4 pt-6">
