@@ -1,27 +1,49 @@
 /**
- * IMMUTABLE BASE TEMPLATE — cache.config.xml
+ * IMMUTABLE BASE TEMPLATE — cache.config.xml (original anexo)
  *
  * This string is frozen and must NEVER be mutated at runtime.
  * Every generated config is a fresh copy of this exact string with ONLY the
  * MAC inside <string name="SP_SN_BACKUP">...,1</string> replaced.
  *
- * If you need to update the base file, paste the original cache.config.xml
- * content here verbatim (keeping the SP_SN_BACKUP line intact).
+ * The content below is the verbatim content of the attached cache.config.xml
+ * file and must be preserved exactly (declaration, elements, values, order,
+ * timestamps, IDs, UUIDs, empty values and formatting).
  */
 export const CACHE_CONFIG_TEMPLATE = `<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
 <map>
+    <string name="live_last_channel_code">SBTHD</string>
+    <string name="unitvsiptv_free"></string>
+    <string name="unitvsiptv_live"></string>
+    <int name="recommends_cache_time" value="96" />
+    <int name="all_Column_key" value="68143" />
+    <long name="service_time_column_10002" value="1765661800299" />
+    <long name="service_time_column_10001" value="1765661799861" />
+    <long name="service_time_column_10006" value="1765661800282" />
+    <int name="live_last_column_id" value="68143" />
+    <string name="key_user_id">515863542</string>
+    <long name="service_time_column_0" value="1765325027991" />
     <string name="KEY_SP_SN">9C:00:D3:CF:F7:20</string>
+    <string name="_free"></string>
+    <string name="_special"></string>
+    <string name="Special_root"></string>
     <string name="SP_SN_BACKUP">9C:00:D3:CF:F7:20,1</string>
-    <string name="key_n_bt">9C:00:D3:CF:F7:21</string>
-    <string name="key_device_id_unitvfree">86e4f2a1c93b47d8</string>
-    <long name="key_first_launch_time" value="1716482391000" />
-    <long name="key_last_service_time" value="1716568791000" />
-    <int name="key_service_time" value="86400" />
-    <string name="key_cache_id">4f2b8c1d-90ae-4d61-9a77-3c5e1b0f8d42</string>
-    <string name="key_cache_value">eyJ2IjoxLCJjIjoiY2FjaGUiLCJ0IjoxNzE2NTY4NzkxfQ==</string>
-    <int name="key_cache_version" value="3" />
-    <boolean name="key_cache_valid" value="true" />
-</map>`;
+    <int name="column_cache_time" value="65" />
+    <string name="_live"></string>
+    <string name="key_user_identity">4</string>
+    <int name="live_last_tab" value="3" />
+    <string name="_search"></string>
+    <string name="unitvsiptv_special"></string>
+    <int name="heartbeat_cache_time" value="120" />
+    <long name="dcs_realtime" value="5777429" />
+    <string name="key_n_bt">04f7b9cb-5b0b-4754-ac1d-7225b02aedbd</string>
+    <string name="key_device_id_unitvfree">515863542</string>
+    <string name="cache_key_recommend"></string>
+    <string name="unitvsiptv_search"></string>
+    <string name="68143">946b2cd8-d75c-11f0-b76f-a304a7c797c8LiveDataV6;1766172909</string>
+    <string name="key_renew_flag">0</string>
+    <long name="service_time_recommends" value="1765568698111" />
+</map>
+`;
 
 /** Fixed MAC prefix — never changes. */
 export const MAC_PREFIX = "9C:00:D3:CF:";
