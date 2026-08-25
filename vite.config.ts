@@ -20,6 +20,8 @@ export default defineConfig({
         injectRegister: null,
         registerType: "prompt",
         filename: "sw.js",
+        // TanStack Start emits browser assets to dist/client; the SW must land there.
+        outDir: "dist/client",
         devOptions: { enabled: false },
         manifestFilename: "manifest.webmanifest",
         manifest: {
