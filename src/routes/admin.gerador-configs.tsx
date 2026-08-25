@@ -1,7 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
-import { Check, ChevronLeft, ChevronRight, Copy, RefreshCw } from "lucide-react";
+import {
+  Check,
+  ChevronLeft,
+  ChevronRight,
+  Copy,
+  Download,
+  RefreshCw,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -12,6 +19,7 @@ import {
   generateConfigs,
   type GeneratedConfig,
 } from "@/lib/config-generator";
+import { usePwa } from "@/hooks/use-pwa";
 
 export const Route = createFileRoute("/admin/gerador-configs")({
   head: () => ({
@@ -37,6 +45,7 @@ const MIN_QTY = 1;
 const MAX_QTY = 20;
 
 function GeradorConfigsPage() {
+  const { canInstall, updateReady, install, applyUpdate } = usePwa();
   const [quantity, setQuantity] = useState(5);
   const [configs, setConfigs] = useState<GeneratedConfig[]>([]);
   const [active, setActive] = useState(0);
