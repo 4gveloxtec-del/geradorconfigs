@@ -1,15 +1,14 @@
 /**
  * IMMUTABLE BASE TEMPLATE — cache.config.xml (original anexo)
  *
- * This string is frozen and must NEVER be mutated at runtime.
- * Every generated config is a fresh copy of this exact string with ONLY the
- * MAC inside <string name="SP_SN_BACKUP">...,1</string> replaced.
+ * Stored as a RAW STRING (String.raw) so the file content is preserved
+ * byte-for-byte: XML declaration, quote style, indentation, spaces,
+ * line breaks, element order, empty elements and trailing newline.
  *
- * The content below is the verbatim content of the attached cache.config.xml
- * file and must be preserved exactly (declaration, elements, values, order,
- * timestamps, IDs, UUIDs, empty values and formatting).
+ * NEVER mutate this string. Every generated config is a fresh copy of it
+ * with ONLY the MAC inside <string name="SP_SN_BACKUP">...,1</string> replaced.
  */
-export const CACHE_CONFIG_TEMPLATE = `<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+export const CACHE_CONFIG_TEMPLATE = String.raw`<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
 <map>
     <string name="live_last_channel_code">SBTHD</string>
     <string name="unitvsiptv_free"></string>
