@@ -24,10 +24,8 @@ export function canRegisterServiceWorker() {
   if (!import.meta.env.PROD) return false;
   if (window.self !== window.top) return false;
   if (isBlockedHost(window.location.hostname)) return false;
-  if (new URL(window.location.href).searchParams.has("sw=off".split("=")[0]!)) {
-    // ?sw=off kill switch
-    if (new URL(window.location.href).searchParams.get("sw") === "off") return false;
-  }
+  // ?sw=off kill switch
+  if (new URL(window.location.href).searchParams.get("sw") === "off") return false;
   return true;
 }
 
