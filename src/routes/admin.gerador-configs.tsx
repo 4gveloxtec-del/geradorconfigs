@@ -1,7 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
-import { Check, ChevronLeft, ChevronRight, Copy, RefreshCw } from "lucide-react";
+import {
+  Check,
+  ChevronLeft,
+  ChevronRight,
+  Copy,
+  Download,
+  RefreshCw,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -12,6 +19,7 @@ import {
   generateConfigs,
   type GeneratedConfig,
 } from "@/lib/config-generator";
+import { usePwa } from "@/hooks/use-pwa";
 
 export const Route = createFileRoute("/admin/gerador-configs")({
   head: () => ({
@@ -37,6 +45,7 @@ const MIN_QTY = 1;
 const MAX_QTY = 20;
 
 function GeradorConfigsPage() {
+  const { canInstall, updateReady, install, applyUpdate } = usePwa();
   const [quantity, setQuantity] = useState(5);
   const [configs, setConfigs] = useState<GeneratedConfig[]>([]);
   const [active, setActive] = useState(0);
@@ -154,7 +163,29 @@ function GeradorConfigsPage() {
         <p className="text-sm text-muted-foreground">
           Gere variações do arquivo-base alterando somente o segundo MAC.
         </p>
+        {canInstall ? (
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="mt-2 w-full sm:w-auto"
+            onClick={() => void install()}
+          >
+            <Download className="mr-2 size-4" />
+            Instalar aplicativo
+          </Button>
+        ) : null}
       </header>
+
+      {updateReady ? (
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-md border border-border bg-muted/50 px-4 py-3">
+          <span className="text-sm font-medium">Nova versão disponível.</span>
+          <Button type="button" size="sm" onClick={applyUpdate}>
+            Atualizar
+          </Button>
+        </div>
+      ) : null}
+
 
       <Card className="mt-6">
         <CardContent className="space-y-4 pt-6">
