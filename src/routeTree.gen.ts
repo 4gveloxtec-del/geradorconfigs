@@ -10,33 +10,43 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminGeradorConfigsRouteImport } from './routes/admin.gerador-configs'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminGeradorConfigsRoute = AdminGeradorConfigsRouteImport.update({
+  id: '/admin/gerador-configs',
+  path: '/admin/gerador-configs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin/gerador-configs': typeof AdminGeradorConfigsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin/gerador-configs': typeof AdminGeradorConfigsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin/gerador-configs': typeof AdminGeradorConfigsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/admin/gerador-configs'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/admin/gerador-configs'
+  id: '__root__' | '/' | '/admin/gerador-configs'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminGeradorConfigsRoute: typeof AdminGeradorConfigsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +58,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/gerador-configs': {
+      id: '/admin/gerador-configs'
+      path: '/admin/gerador-configs'
+      fullPath: '/admin/gerador-configs'
+      preLoaderRoute: typeof AdminGeradorConfigsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminGeradorConfigsRoute: AdminGeradorConfigsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
